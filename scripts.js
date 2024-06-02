@@ -1,24 +1,38 @@
-$(document).ready(function () {
-    $.getJSON("experiences.json", function(data) {
-        $('#introduction').text(data.introduction);
-        
-        data.teaching.forEach(function(item) {
-            $('#teaching').append('<li class="experience-item">' + item + '</li>');
-        });
-        
-        data.research.forEach(function(item) {
-            $('#research').append('<li class="experience-item">' + item + '</li>');
-        });
-        
-        data.others.forEach(function(item) {
-            $('#others').append('<li class="experience-item">' + item + '</li>');
-        });
-        
-        $('.fade-in').each(function (i) {
-            var element = $(this);
-            setTimeout(function () {
-                element.addClass('visible');
-            }, i * 500);
-        });
-    });
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('experiences.json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('introduction').textContent = data.introduction;
+            
+            const teachingList = document.getElementById('teaching');
+            data.teaching.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.className = 'experience-item';
+                listItem.textContent = item;
+                teachingList.appendChild(listItem);
+            });
+
+            const researchList = document.getElementById('research');
+            data.research.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.className = 'experience-item';
+                listItem.textContent = item;
+                researchList.appendChild(listItem);
+            });
+
+            const othersList = document.getElementById('others');
+            data.others.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.className = 'experience-item';
+                listItem.textContent = item;
+                othersList.appendChild(listItem);
+            });
+
+            document.querySelectorAll('.fade-in').forEach((element, i) => {
+                setTimeout(() => {
+                    element.classList.add('visible');
+                }, i * 500);
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
 });
