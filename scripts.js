@@ -28,6 +28,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 othersList.appendChild(listItem);
             });
 
+            const coursesList = document.getElementById('courses');
+            data.courses.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.className = 'experience-item';
+                listItem.textContent = item;
+                coursesList.appendChild(listItem);
+            });
+
             document.querySelectorAll('.fade-in').forEach((element, i) => {
                 setTimeout(() => {
                     element.classList.add('visible');
